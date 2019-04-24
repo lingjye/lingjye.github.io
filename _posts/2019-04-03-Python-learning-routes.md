@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Python学习资源"
-subtitle: ''
+date:	2019-04-03
 author: "lingjye"
-header-style: text
+header-img: 'img/WechatIMG14.jpeg'
+header-mask:	0.5
 tags:
   - Python
 ---

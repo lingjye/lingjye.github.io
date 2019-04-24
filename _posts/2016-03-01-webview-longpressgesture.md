@@ -1,12 +1,11 @@
 ---
 layout: post
 title: "在WebView中添加长按手势,保存图片"
-subtitle: ''
 author: "lingjye"
 header-style: text
 tags:
-  - UIWebview
-  - UILongPressGestureRecognizer
+  - WebView
+  - iOS
 ---
 
 首先要创建UIWebview, 然后直接添加长按手势如下:

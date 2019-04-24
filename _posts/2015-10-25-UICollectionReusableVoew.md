@@ -1,12 +1,11 @@
 ---
 layout: post
 title: "UICollectionReusableView与UITableViewHeaderFooterView的用法"
-subtitle: 'UICollectionReusableView的用法，类似UITableView的分组'
+subtitle: 'UICollectionReusableView与UITableView的区头'
 author: "lingjye"
 header-style: text
 tags:
-  - UITableView
-  - UICollectionView
+  - iOS
 ---
 
 UICollectionReusableView与UITableViewHeaderFooterView都继承自UIView, 显示效果类似常见的UITableView Group分组区头区尾
