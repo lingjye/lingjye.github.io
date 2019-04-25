@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "Python学习资源"
+title: "Python学习资源分享"
+subtitle: ""
 date:	2019-04-03
 author: "lingjye"
 header-img: 'img/WechatIMG14.jpeg'

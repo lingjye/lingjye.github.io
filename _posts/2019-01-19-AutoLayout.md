@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "AutoLayout,UIStackView与Masonry学习"
-subtitle: ''
+title: "谈谈iOS自动布局AutoLayout"
+subtitle: "UIStackView, VFL, Masonry分析对比"
 author: "lingjye"
 header-style: text
 tags:

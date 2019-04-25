@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mac环境下跳过SourceTree登录"
+title: "如何让Mac版SourceTree跳过登录"
 subtitle: ''
 author: "lingjye"
 header-style: text
