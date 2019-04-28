@@ -1,5 +1,5 @@
 ---
-title: Archive
+title: 归档
 layout: default
 description: 时间的印迹
 header-img: "img/mine_bg.jpeg"
@@ -22,7 +22,6 @@ https://github.com/kitian616/jekyll-TeXt-theme
 					Show All
 					<sup>{{site.posts.size}}</sup>
 				</a>
-
 				{% capture tags %}
 				{% for tag in site.tags %}
 				<a data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}"
