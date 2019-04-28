@@ -16,7 +16,7 @@ future: true
 # SNS settings
 RSS: false
 weibo_username:     lingjye
-zhihu_username:     ling-jie-6-24
+zhihu_username:     lingjye
 github_username:    lingjye
 # twitter_username:   lingjye
 #facebook_username:  lingjye
