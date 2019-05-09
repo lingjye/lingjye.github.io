@@ -34,11 +34,12 @@ tags:
 scrapy-splash使用的是Splash HTTP API, 所以需要一个splash instance, 一般采用docker运行splash, 首先需要先安装Docker
 
 ### I. Mac环境下安装
-1. 安装并启动Docker
+
+[1] 安装并启动Docker
 
 	点击下载 [Docker for Mac](https://docs.docker.com/docker-for-mac/install/){:target="_blank"} 
 
-2. 拉取 splash 镜像资源
+[2] 拉取 splash 镜像资源
 
 ```
 $ sudo docker pull scrapinghub/splash
@@ -55,17 +56,17 @@ $ sudo docker pull scrapinghub/splash
 > 点击 Apply 应用, 然后点击 Restart 使设置生效
 > 
 
-3. 开启容器
+[3] 开启容器
 
 ```
 $ sudo docker run -p 8050:8050 scrapinghub/splash
 ```
 
-运行成功, 可在浏览器中输入```localhost:8050```验证.
+运行成功, 可在浏览器中输入`localhost:8050`验证.
 
 ### II. Linux CentOS环境安装
 
-1.  安装并启动Docker
+[1] 安装并启动Docker
 
 安装
 
@@ -81,13 +82,13 @@ $ sudo service docker start
 
 该过程可能需要几分钟时间, 
 
-2. 拉取 splash 镜像资源
+[2] 拉取 splash 镜像资源
 
 ```
 $ sudo docker pull scrapinghub/splash
 ```
 
-3. 开启容器
+[3] 开启容器
 
 ```
 $ sudo docker run -p 8050:8050 scrapinghub/splash
@@ -95,13 +96,13 @@ $ sudo docker run -p 8050:8050 scrapinghub/splash
 
 **使用**
 
-1. 安装Scrapy-Splash模块
+[1] 安装Scrapy-Splash模块
 
 ```
 $ pip install scrapy-splash
 ```
 
-2. 修改配置信息:
+[2] 修改配置信息:
 
 找到Scrapy爬虫项目的settings.py文件, 修改配置信息:
 
@@ -127,7 +128,7 @@ DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 ```
 
-3. 修改项目
+[3] 修改爬虫文件MySpider.py
 
 ```
 # -*- coding: utf-8 -*-
