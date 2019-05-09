@@ -37,7 +37,7 @@ tags:
 
 ![资源](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/python_imgs/py-learning-video.png)
 
-百度云地址: [https://pan.baidu.com/s/1gEyXaFEzWJ_WI-TGkteSMA](https://pan.baidu.com/s/1gEyXaFEzWJ_WI-TGkteSMA) 提取码: 9wke
+百度云地址: [https://pan.baidu.com/s/1gEyXaFEzWJ_WI-TGkteSMA](https://pan.baidu.com/s/1gEyXaFEzWJ_WI-TGkteSMA){:target="_blank"} 提取码: 9wke
 
 资源比较多, 请分开保存!
 
