@@ -16,11 +16,11 @@ tags:
 
 ![显示包内容](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/sourcetree/show_content.png)
 
-之后再Contents页面点击右上角搜索，在记得在Contents目录下搜索：
+之后再Contents页面点击右上角搜索，记得在该Contents目录下搜索：
 
 ![搜索](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/sourcetree/search_0.png)
 
-在搜索框输入atlassian，会看到包含atlassian的所有文件列表，之后全选搜索结果，并且移到废纸楼:
+在搜索框输入atlassian，会看到包含atlassian的所有文件列表，之后全选搜索结果，并且移到废纸篓:
 
 ![搜索结果](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/sourcetree/search.png)
 
