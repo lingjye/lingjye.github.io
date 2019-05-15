@@ -31,6 +31,6 @@ tags:
 
 之前使用的版本比较老，但是也不影响使用，该版本以及license文件已上传至百度云盘，如有需要可自行下载。
 
-百度云链接: https://pan.baidu.com/s/1x4TkaaCO8PEWwhX43olSbw 
+百度云链接: [https://pan.baidu.com/s/1x4TkaaCO8PEWwhX43olSbw](https://pan.baidu.com/s/1x4TkaaCO8PEWwhX43olSbw){:target="_blank"}
 
 提取码: ix2i
