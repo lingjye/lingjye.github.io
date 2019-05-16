@@ -7,9 +7,9 @@ header-img: img/home_bg1.jpeg
 email: 825238111@qq.com
 description: "@lingjye 的个人博客"
 keyword: "Blog, iOS, Python"
-url: http://lingjye.com             # your host, for absolute URL
+url: https://lingjye.com             # your host, for absolute URL
 root: /
-# baseurl: "https://www.lingjye.com"                             # for example, '/blog' if your blog hosted on 'host/blog'
+#baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
 future: true
@@ -65,7 +65,7 @@ kramdown:
 disqus_username: lingjye
 
 # Netease settings
-netease_comment: true
+netease_comment: false
 
 
 
