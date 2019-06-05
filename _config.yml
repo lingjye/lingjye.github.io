@@ -7,8 +7,8 @@ header-img: img/home_bg1.jpeg
 email: 825238111@qq.com
 description: "@lingjye 的个人博客"
 keyword: "Blog, iOS, Python"
-# url: https://lingjye.com             # your host, for absolute URL
-# root: /
+url: https://lingjye.github.io             # your host, for absolute URL
+root: /
 # baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
