@@ -24,7 +24,7 @@
 我的博客仓库——`lingjye.github.io`，是经常修改的，而且还会有人乱提交代码，因此给大家做了一个稳定版的模板。大家可以直接fork模板——`blog-boilerplate`,要改的地方我都说明了。或者可以直接下载zip到本地自己去修改。
 
 ```
-$ git clone git@github.com:lingjye/huxblog-boilerplate.git
+$ git clone git@github.com: huxpro/huxblog-boilerplate.git
 ```
 
 **[在这里预览模板 &rarr;](http://huangxuan.me/huxblog-boilerplate/)**
@@ -123,7 +123,7 @@ tags:
 # Sidebar settings
 sidebar: true  #添加侧边栏
 sidebar-about-description: "简单的描述一下你自己"
-sidebar-avatar: /img/avatar-hux.jpg     #你的大头贴，请使用绝对地址.
+sidebar-avatar: /img/avatar.jpg     #你的大头贴，请使用绝对地址.
 ```
 
 侧边栏是响应式布局的，当屏幕尺寸小于992px的时候，侧边栏就会移动到底部。具体请见bootstrap栅格系统 <http://v3.bootcss.com/css/>
@@ -217,11 +217,11 @@ disqus_username: _你的用户名_
 
 ```
 # Baidu Analytics
-ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+ba_track_id: baiduid
 
 # Google Analytics
-ga_track_id: 'UA-49627206-1'            # 你用Google账号去注册一个就会给你一个这样的id
-ga_domain: huangxuan.me			# 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
+ga_track_id: 'UA-138878783-1'            # 你用Google账号去注册一个就会给你一个这样的id
+ga_domain: lingjye.com			# 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto。
 ```
 
 #### Customization
