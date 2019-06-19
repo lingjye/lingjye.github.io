@@ -91,13 +91,13 @@ tags:
 	s.dependency 'ReactiveCocoa', '~> 2.5'
 	``` 
 	
-	s.requires_arc : 是否支持ARC
+	s.requires_arc : 是否支持ARC<br/>
 	s.subspec : 子文件夹, 可配置项跟主目录一致, 例如:
 	
 	```
 	s.subspec 'SubPath' do |sub|
-    sub.source_files = 'SpecName/SubPath/**/*.{h,m}'
-   end
+		sub.source_files = 'SpecName/SubPath/**/*.{h,m}'
+	end
 	```
 
 7. 本地验证
@@ -150,8 +150,3 @@ tags:
 	```
 	pod repo push SpecName SpecName.podspec  --use-libraries --allow-warnings
 	```
-	
-
-	
-	
-
