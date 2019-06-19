@@ -109,9 +109,26 @@ tags:
 	```
 	git add .
 	git commit -am "desc" 
+	git remote add origin https://github.com/lingjye/SpecName
 	git pull origin master
 	git push origin master
 	```
+	如果提示:
+	
+	```
+	! [rejected]        master -> master (non-fast-forward)
+	error: failed to push some refs to ''
+	hint: Updates were rejected because the tip of your current branch is behind
+	hint: its remote counterpart. Integrate the remote changes (e.g.
+	hint: 'git pull ...') before pushing again.
+	hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+	```
+	
+	出现这个问题是因为远程分支上存在本地分支中不存在的提交
+	
+	可以先fetch, 再merge, 也就是pull, 把运程分支上的提交合并到本地分支之后再push
+	
+	也可以使用 `git push origin master -f` 命令, 强行让本地分支覆盖远程分支
 
 9. 设置标签
 
