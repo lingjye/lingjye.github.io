@@ -24,7 +24,7 @@ tags:
 	
 5. 替换 Classes 目录下的文件
 
-	刚创建时 Classes 目录下有一个 ReplaceMe.m, 删掉它, 并将需要的文件放到该目录下, 如果包含其他目录, 可在 podspec 中 s.source_files 指定路径
+	刚创建时 Classes 目录下有一个 ReplaceMe.m, 删掉它, 并将需要的文件放到该目录下, 如果包含其他目录, 可在 podspec 中 s.subspec 指定路径
 	
 6. 修改 podspec 文件 
 
@@ -92,7 +92,13 @@ tags:
 	``` 
 	
 	s.requires_arc : 是否支持ARC
+	s.subspec : 子文件夹, 可配置项跟主目录一致, 例如:
 	
+	```
+	s.subspec 'SubPath' do |sub|
+    sub.source_files = 'SpecName/SubPath/**/*.{h,m}'
+   end
+	```
 
 7. 本地验证
 
