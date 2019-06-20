@@ -14,7 +14,9 @@ tags:
 
 3. 添加到pod repo
 	
-	```pod repo add SpecName SpecURL```
+	```
+	pod repo add SpecName SpecURL
+	```
 
 4. 生成项目 
 
@@ -24,7 +26,7 @@ tags:
 	
 5. 替换 Classes 目录下的文件
 
-	刚创建时 Classes 目录下有一个 ReplaceMe.m, 删掉它, 并将需要的文件放到该目录下, 如果包含其他目录, 可在 podspec 中 s.subspec 指定路径
+	刚创建时 Classes 目录下有一个 ReplaceMe.m, 删掉它, 并将需要的文件放到该目录下, 如果包含其他目录, 可在 podspec 中 s.source_files 指定路径, 建议使用s.subspec设置子目录，否则pod install之后文件目录跟设置目录不一致
 	
 6. 修改 podspec 文件 
 
@@ -78,8 +80,15 @@ tags:
 	s.ios.deployment_target = '8.0' : 支持的pod最低版本<br/>
 	s.source_files : 需要包含的源文件<br/>
 	s.resources: 资源文件<br/>
+	
 	> “\*” 表示匹配所有文件<br/>
-	> “**” 表示匹配所有子目录
+	> “*\*” 表示匹配所有子目录<br/>
+	> "c\*" 表示匹配以名字C开头的文件<br/>
+	> "\*c" 表示匹配以名字c结尾的文件<br/>
+	> "\*c\*" 表示匹配所有名字包含c的文件<br/>
+	> "?" 表示任意一个字符(注意是一个字符)<br/>
+	> "[set]" 匹配多个字符,支持取反<br/>
+	> "{p,q}" 匹配名字包括 p 或 q的文件<br/>
 	
 	s.resource_bundles : 同上<br/>
 	s.public_header_files : 公开头文件, 可不指定, 默认所有<br/>
@@ -92,12 +101,33 @@ tags:
 	``` 
 	
 	s.requires_arc : 是否支持ARC<br/>
-	s.subspec : 子文件夹, 可配置项跟主目录一致, 例如:
+	s.subspec : 子目录<br/>
 	
 	```
-	s.subspec 'SubPath' do |sub|
-		sub.source_files = 'SpecName/SubPath/**/*.{h,m}'
+	#二级目录
+	s.subspec 'SubSpec' do |ss|
+	ss.source_files = '************/Classes/SubSpec/*.{h,m}'
 	end
+	```
+	
+	由于在 podspec 文件中并没有指明私有仓库地址的地方, 无法使用类似 Podfile 中 如 
+	
+	```
+	:git => 'https://https://github.com/lingjye/Specs.git'
+	```
+	
+	操作, 所以私有库中引用私有库，s.dependency 只能写依赖的库名, 和版本号。这种情况可以在验证和上传私有库的时候进行指明。如:
+	
+	本地验证
+	
+	```
+	pod lib lint SpecName.podspec --sources=https://github.com/CocoaPods/Specs.git,https://github.com/lingjye/YourPrivite/Specs.git
+	```
+	
+	提交到 Pod 仓库
+
+	```
+	pod repo push --source=https://github.com/CocoaPods/Specs.git,https://github.com/lingjye/YourPrivite/Specs.git
 	```
 
 7. 本地验证
@@ -150,3 +180,26 @@ tags:
 	```
 	pod repo push SpecName SpecName.podspec  --use-libraries --allow-warnings
 	```
+	
+11. 使用私有库
+
+	在 Podfile 中编辑, 如下:
+
+	```
+	# Podfile文件
+	# 公有仓库, 保证其他库能正常拉取
+	source 'https://github.com/CocoaPods/Specs.git'
+	# 你的私有仓库
+	source 'https://github.com/lingjye/YourPrivite/Specs.git'
+	
+	pod 'YourPrivite'
+	
+	```
+	
+	或者
+	
+	```
+	pod 'YourPrivite', :git => 'https://github.com/lingjye/YourPrivite/Specs.git'
+	```
+	
+	
