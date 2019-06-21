@@ -481,6 +481,8 @@ pip install scrapy
    self.file.write(line)
 	```
 
+[Demo](https://github.com/lingjye/Python-Notes/tree/master/Note_spider/tutorial){:target="_blank"}
+
 * 部分由js动态渲染的网页抓取为空时, 可以采用scapy-splash框架, 下面介绍下如何使用scrapy-splash框架抓取动态渲染的页面
 
 ## Scrapy-Splash
