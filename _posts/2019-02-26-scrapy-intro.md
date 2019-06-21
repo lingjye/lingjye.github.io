@@ -373,6 +373,8 @@ pip install scrapy
 			pass
 	```
 	
+	可以在控制台看到日志输出多了一行输出: ` 'dupefilter/filtered': 696,`
+	
 6. 在请求前处理 start_urls 参数, 或者传参
 
 	重写父类 start_requests() 方法:
