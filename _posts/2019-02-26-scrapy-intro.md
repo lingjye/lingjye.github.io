@@ -511,7 +511,7 @@ scrapy-splash使用的是Splash HTTP API, 所以需要一个splash instance, 一
 
 [1] 安装并启动Docker
 
-	点击下载 [Docker for Mac](https://docs.docker.com/docker-for-mac/install/){:target="_blank"} 
+点击下载 [Docker for Mac](https://docs.docker.com/docker-for-mac/install/){:target="_blank"} 
 
 [2] 拉取 splash 镜像资源
 
