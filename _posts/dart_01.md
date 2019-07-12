@@ -1,0 +1,233 @@
+
+---
+layout: post
+title: "Flutter基础篇———初识Dart"
+subtitle: ''
+author: "lingjye"
+header-style: text
+tags:
+  - Flutter
+---
+
+
+Flutter 开发语言是Dart，[官方文档](https://dart.dev/guides/language/language-tour){:target="_blank"};
+
+### 注释
+
+单行
+
+```
+// 单行注释
+```
+
+多行
+
+```
+/*
+多行注释
+*/ 
+```
+
+### 语言特性
+
+* Dart所有内容都是一个对象，每个对象都是一个类的实例。数字(numbers)，函数(funtions)和null都是对象。所有对象都继承自Object类。
+* Dart是强类型的语言，变量定义时Dart可以推断类型。如果要明确说明不需要任何类型，请使用特殊类型dynamic。尽量给变量定义时设定类型，会更加安全。
+* Dart支持泛型类型，如List<int>（整数列表）或List<dynamic>（任何类型的对象列表）。
+* Dart支持顶级函数（例如main()），以及绑定到类或对象的函数（分别是静态和实例方法）。还可以在函数内创建函数（嵌套函数）。
+* 类似地，Dart支持顶级变量，以及绑定到类或对象的变量（静态和实例变量）。实例变量有时称为字段或属性。
+* Dart不具备public，protected和private等关键字。如果标识符以下划线（_）开头，则表示其是私有的。
+* 标识符以小写字母或下划线（_）开头，后跟字符和数字的任意组合。
+* Dart有表达式（具有运行时值）和 语句（不具有）。语句通常包含一个或多个表达式，但表达式不能直接包含语句。
+* Dart可以报告两种问题：警告和错误。警告只是表明您的代码可能无法正常工作，但它们不会阻止您的程序执行。错误可以是编译时或运行时，编译时错误会阻止代码执行; 运行时错误导致 代码执行时引发异常。
+
+### 关键字 (60个)
+
+上下文关键字（5个），仅在特定位置具有含义，它们不在是有效的标识符
+
+| show | async | sync | on | hide | 
+| :---: | :---: | :---: | :---: | :---: |
+
+
+内置标识符（20个），为了简化将JavaScript移植到Dart代码，这些关键字在大多数地方都是有效的标识符，但它们不能用作类或类型名称，也不能用作前缀。
+
+| abstract | dynamic | implements | as | import | 
+| :---: | :---: | :---: | :---: | :---: |
+| static | export | interface | external | library | 
+| factory | mixin | operator | typedef | covariant | 
+|Function | part | get | deferred | set |
+
+异步支持标记（2个），Dart 1.0发布后添加的异步支持相关的更新，有限的保留字。不能使用await或yield作为任何函数体中的标识符标记async，async\*或sync*。
+
+| await | yield |
+| :---: | :---: |
+
+保留字（33个）
+
+| else | assert | enum | in |
+| :---: | :---: | :---: | :---: |
+| super | extends | is | break |
+| this | case | throw | catch |
+| false | new | true | class |
+| final | null | try | const |
+| finally | continue | for | var |
+| void | default | rethrow | while |
+| return | with | do | if |
+| set |
+
+### 变量
+
+定义一个字符串变量：
+
+```
+var name = 'Dart';
+```
+
+也可以使用：
+
+```
+dynamic name = 'Dart';
+```
+
+或者 
+
+```
+// 指明String类型
+String name = 'Dart';
+```
+
+如果对象不限于单一类型，可指定Object或dynamic类型 。
+
+var, Object, dynamic 不同： 
+
+var：其实它仅仅只是一个语法. var本身并不是一种类型，而object和dynamic是类型。var声明的变量在赋值的那一刻，就已经决定了它是什么类型。
+
+object：所有的类型都派生自Object，所以这也是它能够被赋值为任意类型的原因。
+
+dynamic：在编译时候不确定实际类型，而在运行时确定其实际类型
+
+
+**默认值： **
+
+未初始化的变量的初始值为：null。
+
+即使是具有数字类型的变量最初也是null，因为数字也是对象。
+
+```
+int lineCount ; assert （lineCount == null ）;
+```
+
+* assert在开发期间如果condition为false ，则抛出异常，在Release模式则会被忽略调用。
+
+**final和const**
+
+final定义的变量的值只能设置一次; const变量是编译时常量。实例变量可以是 final，但不能是 const。final实例变量必须在构造函数启动之前初始化。
+
+例如：
+
+```
+final name = 'Dart' ; //没有类型注释final String nickname = 'Bobby' ; 
+// 无法修改name的值
+name = 'Flutter'; // 错误
+```
+
+### 内置类型
+
+* numbers
+* strings
+* booleans
+* lists (also known as arrays)
+* sets
+* maps
+* runes (for expressing Unicode characters in a string)
+* symbols
+
+**Numbers**
+
+包含两种子类：int和double。
+
+int
+
+整数值不大于64位，具体取决于平台。在Dart VM上，值可以是-2<sup>63</sup>到2<sup>63</sup> - 1，编译成JavaScript的Dart使用JavaScript代码，允许值从-2<sup>53</sup>到2<sup>53</sup>-1。
+
+double
+
+4位（双精度）浮点数，由IEEE 754标准规定。
+
+在Dart 2.1之前，在双上下文中使用整数文字是错误的。从Dart 2.1开始，必要时整数文字会自动转换为双精度数：
+
+``
+double z = 1; // 相当于double z = 1.0
+```
+
+**Strings**
+
+Dart字符串UTF-16编码的一个队列。可以使用单引号或双引号来创建字符串，也可以使用表达式拼接字符串，如果表达式是标识符，则跳过’{}‘。要获取与对象相对应的字符串，Dart会调用该对象的toString()方法。可以使用 ’==‘ 判断两个字符串是否相等。也可以使用带有单引号或双引号的三引号（`'''`或`"""`）创建多行字符串。
+
+```
+var str1 = 'abc';
+var str2 = "abc";
+var str3 = str1 + str2;
+var b = str1 == str2; // 结果true
+// 多行字符串
+var str4 = ’‘’
+abc
+def
+‘’‘;
+
+var str4 = """
+abc def
+""";
+
+```
+
+可以添加r前缀，代表’raw‘字符串：
+
+```
+var str = r'abc';
+```
+
+**Booleans**
+
+* Dart 是强 bool 类型检查，只有两个对象具有bool类型：true和false，它们都是编译时常量。
+* Dart的类型安全意味着我们不能使用 if（nonbooleanValue） 或 assert（nonbooleanValue） 等代码, 相反Dart使用的是显式的检查值，这一点需要注意。
+
+**List**
+
+Dart中，数组是 List 对象。默认下标从0开始。
+
+```
+// Dart推断出list类型List<int>。如果尝试将非整数对象添加到此列表，则会引发错误
+var l1 = [1, 2, 3];
+```
+
+Dart 2.3引入了spread operator（...）和 null-aware spread operator（...?），它提供了一个将多个元素插入集合的简洁方法。
+
+```
+var l1 = [1, 2, 3];
+var l1 = [1, 2, 3, 4];
+l1.add(5);
+l1.clear();
+l1.addAll([10, 11, 12, 13, 14]);
+l1.remove(1);
+l1.removeAt(0);
+l1.insert(0, 6);
+l1.replaceRange(0, 1, [8, 9]);
+l1.removeLast();
+print(l1);
+print(l1.first);
+print(l1.last);
+print(l1[1]);
+l1.removeRange(0, 1);
+// 删除值等于 8 的元素
+l1.removeWhere((item)=>item == 8);
+print(l1);
+// 添加另一个数组的所有元素
+var l2 = [0, ... l1]; 
+print(l2);
+
+```
+
+**Sets**
+
+Dart中的Set是无序的。对集合的Dart支持由set literals和Set类型提供。
+
