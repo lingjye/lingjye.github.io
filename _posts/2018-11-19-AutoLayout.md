@@ -18,3 +18,5 @@ AutoLayout 是一种自动布局技术, 是一种来帮助开发者进行页面�
 
 	1. 参照: 将某个UI控件作为参照标示, 进行确定该控件的位置;
 	2. 约束: 为控件的布局进行加入限定, 实现在iOS设备上都能按照限定的格式、位置进行显示.
+
+本文[Demo](https://github.com/lingjye/iOS-Learning/tree/master/AutoLayoutLearning){:target="_blank"}
