@@ -59,7 +59,7 @@ objc_msgSend函数会根据消息接收者和选择子的类型来调用适当�
 
 * objc_msgSend_stret，此函数可返回结构体，如果返回值太大，无法容纳于CPU寄存器中，需要由另一个函数执行派发；
 * objc_msgSend_fpret，此函数可返回浮点类型数据；
-* * objc_msgSend_fp2ret，同上，在一些处理器上，用来发送返回值类型为浮点类型的消息（x86-64）；
+* objc_msgSend_fp2ret，同上，在一些处理器上，用来发送返回值类型为浮点类型的消息（x86-64）；
 * objc_msgSendSuper，给父类发送消息；
 * objc_msgSendSuper_stret，同上。
 
@@ -69,12 +69,14 @@ objc_msgSend函数会根据消息接收者和选择子的类型来调用适当�
 
 当对象接收到无法解读的消息时，会启动消息转发机制，我们也可经由此转发过程来处理未知消息。
 
+如果未经处理，则会由NSObject的`doesNotRecognizeSelector:`方法抛出异常。
+
 消息转发阶段：
 
 1. 动态方法解析；
 2. 完整的消息转发机制。
 
-**动态方法解析**
+### 动态方法解析
 
 对象收到无法解读的消息后，先询问所属类，是否可以动态添加方法来处理未知选择子，调用方法：
 
@@ -82,6 +84,8 @@ objc_msgSend函数会根据消息接收者和选择子的类型来调用适当�
 // 参数为对应的选择子
 + (BOOL)resolveInstanceMethod:(SEL)selector;
 ```
+
+在继续往下执行转发机制之前，本类有机会新增一个处理此选择子的方法。
 
 与此相对应的，如果调用的方法是类方法，则调用方法：
 
@@ -91,6 +95,115 @@ objc_msgSend函数会根据消息接收者和选择子的类型来调用适当�
 
 当然，使用该方式处理未知消息，需要提前将实现代码写好，等待运行时动态插在类中。
 
+下面使用resolveInstanceMethod:来实现@dynamic属性，示例：
+
+```
+// Setter 方法
+void autoDictionarySetter(id self, SEL _cmd, id value) {
+    MFLAutoDictionary *typeSelf = (MFLAutoDictionary *) self;
+    NSMutableDictionary *backingStore = typeSelf.backingStore;
+
+    NSString *selectorString = NSStringFromSelector(_cmd);
+    NSMutableString *key = [selectorString mutableCopy];
+
+    //remove the ':' at the end
+    [key deleteCharactersInRange:NSMakeRange(key.length - 1, 1)];
+
+    //remove the 'set' prefix
+    [key deleteCharactersInRange:NSMakeRange(0, 3)];
+
+    //lowercase the first character
+    NSString *lowercaseString = [[key substringToIndex:1] lowercaseString];
+
+    [key replaceCharactersInRange:NSMakeRange(0, 1) withString:lowercaseString];
+
+    if (value) {
+        [backingStore setObject:value forKey:key];
+    } else {
+        [backingStore removeObjectForKey:key];
+    }
+}
+
+// Getter方法
+id autoDictionaryGetter(id self, SEL _cmd) {
+    MFLAutoDictionary *typeSelf = (MFLAutoDictionary *) self;
+    NSMutableDictionary *backStore = typeSelf.backingStore;
+
+    NSString *key = NSStringFromSelector(_cmd);
+    return [backStore objectForKey:key];
+}
+
+// 动态解析处理
++ (BOOL)resolveInstanceMethod:(SEL)sel {
+	 // 将选择子转换为字符串
+    NSString *selectorString = NSStringFromSelector(sel);
+    // 如果包含set前缀，则表示set方法
+    if ([selectorString hasPrefix:@"set"]) {
+    	 // 添加处理该选择子的方法到类中，所添加的方法是用C函数实现的
+        class_addMethod(self,
+                        sel,
+                        (IMP) autoDictionarySetter,
+                        "v@:@");
+    } else {
+    	 // 如果包含get前缀，则表示get方法
+        class_addMethod(self,
+                        sel,
+                        (IMP) autoDictionaryGetter,
+                        "@@:");
+    }
+    return YES;
+}
+
+```
+
+### 备用接收者
+
+当resolveInstanceMethod:返回NO时，运行期系统还是会询问当前接收者是否可以把这条消息转给其他接收者来处理。此时，调用方法：
+
+```
+// 参数依然是未知的选择子
+- (id)forwardingTargetForSelector:(SEL)selector
+```
+
+如果当前接收者能找到备用对象，则将其返回，否则返回nil。通过这种方案，可以使用“组合（composition）”来模拟出“多重继承（multiple inheritance）”的某些特性。在一个对象内部，可能还有一系列其他对象，该对象可经由此方法将能够处理某选择子的相关内部对象返回。这样在外界看起来就好像是由该类处理了这些消息。
+
+但是，这一步只能返回接收消息的备用者，无法对消息进行处理。如果需要在发送给备用接收者之前修改消息内容，则需要通过完整的消息转发机制。
+
+### 完整的消息转发
+
+如果forwardingTargetForSelector返回的备用接收者为nil，则转发算法启用完整的消息转发机制。
+
+在该过程中，首先会创建一个NSInvocation对象，然后把与尚未处理的消息有关的全部细节都封装起来，包含目标（target）、选择子以及参数等。在触发NSInvocation对象时，将启用消息派发系统（message-dispatch system）来把消息指派给目标对象。
+
+此过程调用方法：
+
+```
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+```
+
+该过程只需要改变调用目标，然后使消息在新目标上得以调用即可。但是使用这种方法与“备用接收者”方案所实现的方法是等效的，所以一般采用的实现方式是：在触发消息前，先用其他方法来改变消息内容，其调用函数为：
+
+```
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
+```
+
+在这个函数中可以追加一些其他参数，甚至是改变选择子等。
+
+在实现该方法时，如果发现其调用操作不应由本类处理，则需要调用父类的同名方法。即：
+
+```
+return [super methodSignatureForSelector:aSelector];
+```
+
+这样，继承体系中的每个类都有机会来处理此调用请求，直至NSObject类。如果最后调用了NSObject类的方法，那么该方法还会继而调用`doesNotRecognizeSelector:`方法抛出异常，如果抛出异常，则表明选择子最终没有得到处理。
+
+### 消息转发全流程
+
+ 消息转发机制处理消息的各个步骤：
+ 
+ ![消息转发](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/iOS/messageforwarding.png)
+
+在消息转发过程中，越往后处理消息的代价越大。如果在第一步就处理完，则运行期系统会将此方法缓存起来，等到这个类接收到同名选择子时，无须启动消息转发流程，这也是为什么在测试中`resolveInstanceMethod:`只调用一次的原因。如果第三步中只是把消息转给备用接收者，建议把转发操作提前到第二步，这样执行转发的处理就会更加简单。
 
 ## 附 Objective-C类型编码
 
