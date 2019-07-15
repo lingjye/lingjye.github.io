@@ -201,7 +201,7 @@ return [super methodSignatureForSelector:aSelector];
 
  消息转发机制处理消息的各个步骤：
  
- ![消息转发](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/iOS/messageforwarding.png)
+ ![消息转发](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/iOS/messageforwarding.jpg)
 
 在消息转发过程中，越往后处理消息的代价越大。如果在第一步就处理完，则运行期系统会将此方法缓存起来，等到这个类接收到同名选择子时，无须启动消息转发流程，这也是为什么在测试中`resolveInstanceMethod:`只调用一次的原因。如果第三步中只是把消息转给备用接收者，建议把转发操作提前到第二步，这样执行转发的处理就会更加简单。
 
