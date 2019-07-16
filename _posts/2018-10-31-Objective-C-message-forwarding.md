@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Objective-C消息转发机制及动态解析"
+title: "Objective-C消息传递与消息转发机制"
 subtitle: ''
 author: "lingjye"
 header-style: text
