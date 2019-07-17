@@ -6,9 +6,9 @@ author: "lingjye"
 header-img: 'img/python_imgs/spider.jpg'
 header-mask:	0.3
 tags:
-  - python
-  - scrapy
-  - scrapy-splash
+  - Python
+  - Scrapy
+  - Scrapy-splash
 ---
 
 ### 简介
