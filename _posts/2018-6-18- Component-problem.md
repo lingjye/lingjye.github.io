@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "使用CocoaPods拆分项目时的pch问题
+title: "使用CocoaPods拆分项目时的pch问题"
 subtitle: ''
 author: "lingjye"
 header-style: text
 tags:
-  - iOS
-  - Reveal
+  - CocoaPods
 ---
 
 pod中饭pch尽量不要使用，每次pod install会重置，事实上其他开源三方库也基本都不用这个。
