@@ -4,7 +4,7 @@ title: "使用 Cocoapod 创建私有库步骤"
 author: "lingjye"
 header-style: text
 tags:
-  - cocoapod
+  - CocoaPods
   - iOS
 ---
 
