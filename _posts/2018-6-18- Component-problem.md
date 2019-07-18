@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "使用CocoaPods拆分项目时的pch问题"
+title: "CocoaPods中的OC与Swift混编问题"
 subtitle: ''
 author: "lingjye"
 header-style: text
@@ -24,7 +24,7 @@ s.private_header_files = 'MixSDK/Classes/MSHelperHeader.h'
 
 可以将使用的第三方头文件在使用的.m文件中导入，但是显得极其臃肿，甚至需要为pod库中的每一个.m都导入这些第三方库的.h文件，可以想象以下，这是什么样的感受。
 
-当然，也可以在YourPodName-umbrella.h中将单独引用其他第三方库的.h文件删除，这一步也不推荐，不仅会有警告`<module-includes>:1:1: Umbrella header for module 'YourPodName' does not include xxxx`,还会在执行pod install后会重置，慎用。
+当然，也可以在YourPodName-umbrella.h（跟桥接文件类似）中将单独引用其他第三方库的.h文件删除，这一步也不推荐，不仅会有警告`<module-includes>:1:1: Umbrella header for module 'YourPodName' does not include xxxx`,还会在执行pod install后会重置，慎用。
 
 设置私有后执行下`pod install`可以看到xxx--umbrella.h中已经没有专门导入第三方库的.h文件了。
 
@@ -62,6 +62,25 @@ open class MSModel: NSObject {
         MSAnimal.show();
     }
 }
+```
+
+如果在pod库中使用了Swift，那么在主工程中一定要新建一个Swift文件，空白的也可以。否则编译器会报错：
+
+```
+ld: warning: Could not find auto-linked library 'swiftCoreGraphics'
+ld: warning: Could not find auto-linked library 'swiftFoundation'
+ld: warning: Could not find auto-linked library 'swiftMetal'
+ld: warning: Could not find auto-linked library 'swiftDarwin'
+ld: warning: Could not find auto-linked library 'swiftUIKit'
+ld: warning: Could not find auto-linked library 'swiftObjectiveC'
+ld: warning: Could not find auto-linked library 'swiftCoreFoundation'
+ld: warning: Could not find auto-linked library 'swiftDispatch'
+ld: warning: Could not find auto-linked library 'swiftCoreImage'
+ld: warning: Could not find auto-linked library 'swiftQuartzCore'
+ld: warning: Could not find auto-linked library 'swiftCore'
+ld: warning: Could not find auto-linked library 'swiftSwiftOnoneSupport'
+ld: symbol(s) not found for architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 
 **[查看Demo](https://github.com/lingjye/iOS-Learning/tree/master/MixSDK){:target="_blank"}**
