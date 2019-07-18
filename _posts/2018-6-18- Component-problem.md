@@ -31,3 +31,38 @@ s.private_header_files = 'MixSDK/Classes/MSHelperHeader.h'
 ![umbrella.h](https://raw.githubusercontent.com/lingjye/lingjye.github.io/master/img/pods/umbrella-h.png)
 
 [Podspec文档](https://guides.cocoapods.org/syntax/podspec.html)
+
+#### OC与Swift混编
+
+在pod库中，OC引用swift文件时，需要导入：
+
+```
+#import <MixSDK/MixSDK-Swift.h>
+```
+
+主工程中的OC文件引用swift文件时使用`#import "YourTargetName-Swift.h"`来引用，在XCode 10.2.1，Swift 5.0中使用`@import YourPodName;`，例如：
+
+```
+#import "MixSDK_Example-Swift.h"
+```
+
+Xcode 10.2.1，swift 5.0使用：
+
+```
+@import MixSDK;
+```
+
+而swift引用OC文件时，不需要使用桥接文件，pod会自动生成YourPodName-umbrella.h直接使用即可，例如：
+
+```
+import UIKit
+
+open class MSModel: NSObject {
+    @objc open class func show() {
+        MSAnimal.show();
+    }
+}
+```
+
+
+
