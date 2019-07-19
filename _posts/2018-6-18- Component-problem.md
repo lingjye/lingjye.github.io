@@ -85,6 +85,15 @@ ld: symbol(s) not found for architecture arm64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 
+**指定Swift版本**
+
+当pod库中含有Swift中需要在Podspec文件中指定Swift版本，如下：
+
+```
+#s.swift_version = '4.2'
+s.swift_version = '5.0'
+```
+
 #### 配置忽略文件
 
 使用`pod lib create YourPodName`命令生成的pod库，会自动生成`.gitignore`文件，默认包含如下内容：
