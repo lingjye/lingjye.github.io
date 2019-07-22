@@ -5,7 +5,7 @@ subtitle: ''
 author: "lingjye"
 header-style: text
 tags:
-  - git
+  - Git
 ---
 
 之前一直使用的SourceTree版本是2.0.5.2版本，只需要注册license, 升级后打开一直卡在登录页，国内的话一般是无法直接登录的，翻墙除外，可以使用Google账号登录，且该步骤按正常流程无法跳过。
