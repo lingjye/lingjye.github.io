@@ -226,6 +226,50 @@ Center(
 
 在绘制子widget之前应用转换的widget。
 
+与在布局之前应用旋转的RotatedBox不同，此对象在绘制之前应用其转换，这意味着在计算此widget的孩子（以及此widget）消耗的空间量时不会考虑转换。
+
+旋转并倾斜文本widget，右上角固定到其原始位置示例：
+
+```
+class _TransformSampleAppPageState extends State<TransformSampleAppPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(
+         title: Text('Scaffold'),
+       ),
+       body: Container(
+         color: Colors.black,
+         child: Transform(
+           alignment: Alignment.topLeft,
+           transform: Matrix4.skewY(0.3)..rotateZ(-pi / 12.0),
+           child: Container(
+             padding: const EdgeInsets.all(50.0),
+             margin: const EdgeInsets.all(50),
+             color: Colors.red[100],
+             child: const Text('Apartment for rent!'),
+           ),
+         ),
+       ),
+    );
+  }
+}
+```
+
+构造函数
+
+```
+Transform({Key key, @required Matrix4 transform, Offset origin, AlignmentGeometry alignment, bool transformHitTests: true, Widget child })
+```
+
+参数
+
+* alignment → AlignmentGeometry，原点的对齐方式，相对于方框的大小。
+* origin → Offset，坐标系的原点（相对于此渲染对象的左上角）在其中应用矩阵。
+* transform → Matrix4，在绘画过程中改变孩子的矩阵。
+* transformHitTests → bool，是否在执行命中测试时应用转换。
+* child → Widget，子widget
+
 #### CustomSingleChildLayout
 
 一个自定义的拥有单个子widget的布局widget
