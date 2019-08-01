@@ -207,6 +207,56 @@ return [super methodSignatureForSelector:aSelector];
 
 在消息转发过程中，越往后处理消息的代价越大。如果在第一步就处理完，则运行期系统会将此方法缓存起来，等到这个类接收到同名选择子时，无须启动消息转发流程，这也是为什么在测试中`resolveInstanceMethod:`只调用一次的原因。如果第三步中只是把消息转给备用接收者，建议把转发操作提前到第二步，否则还需要创建并处理完整的NSInvocation。
 
+
+#### 方法签名
+
+NSObject提供了两种方法来获取实例的方法签名：
+
+* `- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector`
+* `+ (NSMethodSignature *)instanceMethodSignatureForSelector:(SEL)aSelector`
+
+上述两个方法一个是实例方法，一个是类方法，它们都返回了一个`NSMethodSignature`对象。
+
+```
+// 创建新的方法签名(方法的描述)
+NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:selector];
+```
+
+`NSMethodSignature`需要使用`NSInvocation`来进行包装。
+
+```
+// 创建NSInvocation对象, 包装签名对象
+// NSInvocation : 利用一个NSInvocation对象包装一次方法调用（方法调用者、方法名、方法参数、方法返回值）
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+```
+
+为`NSInvocation`对象设置调用者，和响应的SEL
+
+```
+invocation.target = self;
+invocation.selector = selector;
+```
+
+最后需要调用`invoke`方法来完成调用
+
+```
+// 开始调用
+[invocation invoke];
+```
+
+返回值处理
+
+```
+if (signature.methodReturnLength) {
+	NSString *returnTypeString = [NSString stringWithUTF8String:signature.methodReturnType];
+	if ([returnTypeString isEqualToString:@"@"]) {
+	    id __unsafe_unretained returnValue;
+	    [invocation getReturnValue:&returnValue];
+	    return returnValue;
+	}
+}
+```
+
 ## 附 Objective-C类型编码
 
 | 	编码 	| 	含义 	|
