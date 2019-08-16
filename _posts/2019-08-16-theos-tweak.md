@@ -185,8 +185,6 @@ dpkg -r com.domain.xxxx
 
 注意，请在Makefile文件修改自己设备的真实IP
 
-##### 本文[Demo](https://github.com/lingjye/TweakDemo){:target="_blank"}
-
 #### <a name="error">错误</a>
 
 1. 错误： git submodule update --init --recursice
@@ -227,3 +225,5 @@ dpkg -r com.domain.xxxx
 	```
 	THEOSPLATFORM_DPKG_DEB_COMPRESSION ?= xz
 	```
+	
+##### 本文[Demo](https://github.com/lingjye/TweakDemo){:target="_blank"}
