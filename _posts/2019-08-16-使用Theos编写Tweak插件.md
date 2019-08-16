@@ -76,6 +76,10 @@ nic.pl
 	
 然后会在用户目录下(`/Users/YourMacName/myteak`)生成刚才创建的项目，例如：myteak
 
+另外可以点击[这里下载](https://github.com/DHowett/theos-nic-templates/archive/master.zip){:target="_blank"}另外5个模板。然后把5个模板都拷贝到 `/opt/theos/templates/ios` 目录下。
+
+也可以点击[查看如何自定义模板](http://iphonedevwiki.net/index.php/NIC#How_to_set_default_values){:target="_blank"}。
+
 **文件介绍**
 
 默认生成的项目下，会有四个文件：
@@ -160,11 +164,15 @@ make
 make package
 ```
 
+之后会在项目下看到生成了一个 `packages` 文件夹，它下面存放的就是 .deb 格式的Tweak安装包。
+
 **安装**
 
 ```
 make install
 ```
+
+可以前往 Cydia->已安装->最近查看安装是否成功，或者使用 ssh 命令或工具前往设备的 `Library/MobileSubstrate/DynamicLibraries/` 目录下查看是否有刚才安装的插件，后缀为 .dylib和.plist。
 
 注意，请在Makefile文件修改自己设备的真实IP
 
