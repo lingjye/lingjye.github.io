@@ -22,6 +22,31 @@ Runtime,Runloop
 KVO
 WebSocket，MQTT,TCP/IP,Http
 
+**Router**
+
+URL Router通过提前注册路由表，然后再运行时根据路由表获取对应控制器实现跳转，或者组件间的相互调用，缺点是需要单独维护该路由表。
+
+
+**链式、函数式、响应式编程**
+
+链式编程是通过点（‘.’）语法，将需要执行的函数连接起来调用，使得程序简单已读。其中每一个函数返回值都是一个block变量，block变量中必须有返回值且必须是当前对象本身。代表：Masonry。
+
+函数式编程的特点是每个方法必须有返回值且是该对象本身, 把函数或者block当做参数。属于编程范式的一种。代表：ReactiveCocoa（FRP框架）。
+
+响应式编程，是一种面向数据流和变化传播的编程范式。这意味着可以在编程语言中很方便地表达静态或动态的数据流，而相关的计算模型会自动将变化的值通过数据流进行传播。代表：ReactiveCocoa。
+
+**RAC热信号与冷信号**
+
+热信号是主动的，不订阅也能够按时发送。冷信号是被动的，只有订阅才会发送。
+热信号可以有多个订阅者。冷信号只能够一对一，有不同订阅者，消息会从新完整发送。
+
+**MVVM**
+
+低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的View上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变；
+可重用性。可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑；
+独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面（View）设计，使用Expression Blend可以很容易设计界面并生成xaml代码；
+可测试。针对ViewModel来对View写测试代码，会简单些，它能够减少Controller的复杂性，使得表示逻辑更易测试。
+
 **property 常用的后面修饰符，有啥特殊情况，怎么处理**
 
 1. 线程安全的： atomic, nonatomic, 默认atomic，用来防止在未写完成时被另一线程读取修改，但是比较耗费系统资源。nonatomic禁止多线程，变量保护，提高性能。
@@ -188,3 +213,47 @@ AOP的弊端：
 Objective-C运行时为每个类自动调用两种方法。+load在最初加载类时调用，而+initialize在应用程序使用该类或该类的实例时调用其第一个方法之前调用。两者都是可选的，只有在实现方法时才会执行。
 
 在Method swizzling会影响全局状态，因此最小化竞争条件非常重要。+load保证在类初始化期间加载，这为更改系统范围的行为提供了一定的一致性。相比之下，+initialize它没有提供何时执行的保证，如果该类永远不被应用程序使用，那么它就永远不会被调用。另外在+load中使用Method swizzling，一定要使用dispatch_once来保证代码只执行一次。
+
+
+
+**APP 启动过程**
+
+启动阶段分为 pre-main 和 main 函数到第一个界面渲染完成这两个部分。
+
+pre-main 阶段： 
+
+I. XUN内核进程运作，加载APP可执行文件（Mach-O）。
+
+XUN是iOS系统的内核，其加载iOS APP的过程为：
+
+1. fork 新进程；
+2. 为 Mach-O 分配内存；
+3. 解析 Mach-O;
+4. 读取 Mach-O 头信息；
+5. 遍历 load command 信息，将 Mach-O 映射到内存；
+6. 启动 dyld
+
+II. 加载动态链接加载器dyld（dynamic loader，专门用来加载动态链接库的库）， 在Xcode的schema指定环境变量(Run->Environment Variables下) DYLD_PRINT_STATISTICS 为 true，可以在控制台打印加载时长。
+
+III. dyld 递归加载应用所需的动态链接库（dynamic library，又称：DSO或DLL）。
+
+此阶段性能影响因素：
+
+1. 动态库加载越多，启动越慢<br/>
+2. ObjC类越多，启动越慢<br/>
+3. C的constructor函数越多，启动越慢<br/>
+4. C++静态对象越多，启动越慢<br/>
+5. ObjC的+load越多，启动越慢<br/>
+
+main 阶段：
+
+I. 调用main()
+II. 调用UIApplicationMain()
+III. 调用applicationWillFinishLaunching
+
+此阶段性能影响因素：
+
+1. 执行main()函数的耗时
+2. 执行applicationWillFinishLaunching的耗时
+3. 主视图控制器的加载
+
