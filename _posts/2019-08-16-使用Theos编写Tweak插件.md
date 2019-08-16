@@ -142,7 +142,7 @@ Tweak.xm 中涉及到 [Logos 语法](http://iphonedevwiki.net/index.php/Logos){:
 
 	参考： [Logos 语法](http://iphonedevwiki.net/index.php/Logos){:target="_blank"}
 
-##### 编译、打包、安装
+##### 编译、打包、安装、卸载
 
 首先需要 cd 到项目路径下：
 
@@ -172,9 +172,20 @@ make package
 make install
 ```
 
+**卸载**
+
+需要使用SSH访问设备的文件系统，然后执行以下命令：
+
+```
+// 此处是要卸载的bundleID
+dpkg -r com.domain.xxxx
+```
+
 可以前往 Cydia->已安装->最近查看安装是否成功，或者使用 ssh 命令或工具前往设备的 `Library/MobileSubstrate/DynamicLibraries/` 目录下查看是否有刚才安装的插件，后缀为 .dylib和.plist。
 
 注意，请在Makefile文件修改自己设备的真实IP
+
+##### 本文[Demo](https://github.com/lingjye/TweakDemo){:target="_blank"}
 
 #### <a name="error">错误</a>
 
