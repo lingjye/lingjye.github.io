@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CocoaPods组件化过程中OC与Swift混编问题"
+title: "CocoaPods组件化之OC与Swift混编问题"
 subtitle: ''
 author: "lingjye"
 header-style: text
