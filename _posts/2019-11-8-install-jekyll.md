@@ -1,3 +1,13 @@
+---
+layout: post
+title: "Mac下安装Jekyll"
+subtitle: ''
+author: "lingjye"
+header-style: 'text'
+tags:
+  - iOS
+---
+
 安装命令行工具
 
 ```
