@@ -5,7 +5,7 @@ subtitle: ''
 author: "lingjye"
 header-style: 'text'
 tags:
-  - iOS
+  - Jekyll
 ---
 
 安装命令行工具
