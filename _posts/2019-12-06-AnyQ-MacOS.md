@@ -1,3 +1,13 @@
+---
+layout: post
+title: "在MacOS下配置AnyQ"
+subtitle: '使用AnyQ搭建智能问答系统'
+author: "lingjye"
+header-style: 'text'
+tags:
+  - iOS
+---
+
 [AnyQ](https://github.com/baidu/AnyQ)
 
 ### 代码编译：
