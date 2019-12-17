@@ -16,7 +16,7 @@ tags:
 
 由于AnyQ基于Linux，所以这里需要使用Docker安装。
 
-下载 [Docker](https://www.docker.com/) 并安装，启动Docker，选择 Preferences -> Advanced, 配置CPUs：4，Memory：7.0GiB，Swap:3.0GiB, 尽量大一些。
+下载 [Docker](https://www.docker.com/) 并安装，启动Docker，选择 Preferences -> Advanced, 配置CPUs：4，Memory：7.0GiB，Swap:3.0GiB, 尽量大一些（至少8G）。
 
 ##### 启动Docker
 
