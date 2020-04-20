@@ -16,7 +16,7 @@ tags:
 
 由于AnyQ基于Linux，所以这里需要使用Docker安装。
 
-下载 [Docker](https://www.docker.com/) 并安装，启动Docker，选择 Preferences -> Advanced, 配置CPUs：4，Memory：7.0GiB，Swap:3.0GiB, 尽量大一些（至少8G）。
+下载 [Docker](https://www.docker.com/){:target="_blank"} 并安装，启动Docker，选择 Preferences -> Advanced, 配置CPUs：4，Memory：7.0GiB，Swap:3.0GiB, 尽量大一些（至少8G）。
 
 ##### 启动Docker
 
@@ -249,7 +249,7 @@ docker run -p 8999:8999 -p 8900:8900 -i -t -v $(PWD)/AnyQ:/AnyQ anyq/anyq
 
 **参考：**
 
-[AnyQ 是什么](https://zhuanlan.zhihu.com/p/55403810)
+[AnyQ 是什么](https://zhuanlan.zhihu.com/p/55403810){:target="_blank"}
 
-[AnyQ之编译安装](http://keejo.coding.me/AnyQ%E4%B9%8B%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85.html)
+[AnyQ之编译安装](http://keejo.coding.me/AnyQ%E4%B9%8B%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85.html){:target="_blank"}
 

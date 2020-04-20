@@ -140,6 +140,6 @@ tags:
 	zip -r xxx.ipa Payload
 	```
 
-签名工具:[ResignForiOS](https://github.com/HanProjectCoder/ResignForiOS)
+签名工具:[ResignForiOS](https://github.com/HanProjectCoder/ResignForiOS){:target="_blank"}
 
-### 有关签名的原理可前往[《iOS App 签名的原理》](http://blog.cnbang.net/tech/3386/){target="_blank"}
+### 有关签名的原理可前往[《iOS App 签名的原理》](http://blog.cnbang.net/tech/3386/){:target="_blank"}
